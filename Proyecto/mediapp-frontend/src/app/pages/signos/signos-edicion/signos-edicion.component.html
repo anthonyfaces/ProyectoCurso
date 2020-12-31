@@ -1,0 +1,65 @@
+<mat-toolbar>Edicion de Signos Vitales</mat-toolbar>
+
+<form class="example-container" [formGroup]="form" #frmPaciente="ngForm" (ngSubmit)="onEditSign()">
+
+     <div [hidden]="true">
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="ID" required formControlName="id">
+        </mat-form-field>
+    </div>
+   
+    <mat-form-field>
+        <input type="text" placeholder="Paciente" matInput [readonly]='habilitarCaja' [required]='!habilitarCaja'
+            [matAutocomplete]="autoPaciente"
+            [formControl]="myControlPaciente" formControlName="paciente">  
+                     
+    </mat-form-field>
+
+    <mat-autocomplete #autoPaciente="matAutocomplete" [displayWith]="mostrarPaciente" >
+        <mat-option *ngFor="let p of pacientesFiltrados$ | async" [value]="p">
+            {{ p.nombres }} {{p.apellidos}}
+        </mat-option>
+    </mat-autocomplete>
+    
+    <button mat-raised-button color="primary" type="button" (click)="abrirDialogo()" *ngIf="!habilitarCaja">
+        Registrar paciente
+    </button> 
+
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Temperatura entre 30-40" type="number" required 
+               pattern="^(3[0-9]|40)$|^(3[0-9]|40).[0-9]{1,2}$"    formControlName="temperatura">
+        <small *ngIf="f.temperatura.invalid" class="invalido">
+            Temperatura(30-40) es requerido, maximo 2 digitos decimales
+        </small>      
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Pulso" type="number" required formControlName="pulso">
+         <small *ngIf="f.pulso.errors?.required && f.pulso.touched" class="invalido"> 
+            Pulso es requerido
+        </small>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Frec. Respiratoria" type="number" required formControlName="frecRespiratoria">
+        <small *ngIf="f.frecRespiratoria.errors?.required && f.frecRespiratoria.touched" class="invalido"> 
+            Frecuencia Respiratoria es requerido
+        </small>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+		<input formControlName="fecha" matInput  required [matDatepicker]="picker" placeholder="Fecha de registro">
+		<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+		<mat-datepicker #picker></mat-datepicker>
+	</mat-form-field>
+   
+    <button mat-raised-button color="primary" type="submit" [disabled]="frmPaciente.invalid">
+        <mat-icon>done</mat-icon>
+        <span>Aceptar</span>
+    </button>
+    <button mat-raised-button color="accent" routerLink='/signo' type="button">
+        <mat-icon>close</mat-icon>
+        <span>Cancelar</span>
+    </button>
+
+</form>

@@ -1,0 +1,55 @@
+
+<mat-toolbar>Registro de Paciente</mat-toolbar>
+
+<form class="example-container" [formGroup]="form" #frmPaciente="ngForm" (ngSubmit)="onRegisterPatient()">
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Nombres" required formControlName="nombres">
+        <small *ngIf="f.nombres.errors?.required && f.nombres.touched" class="invalido">Nombre es requerido</small>          
+        <small *ngIf="f.nombres.errors?.minlength && f.nombres.touched" class="invalido">El campo debe ser mayor a 3 caracteres</small>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Apellidos" required minlength="3" formControlName="apellidos">
+        <small *ngIf="f.apellidos.errors?.required && f.apellidos.touched" class="invalido">Apellido es requerido</small>          
+        <small *ngIf="f.apellidos.errors?.minlength && f.apellidos.touched" class="invalido">El campo debe ser mayor a 3 caracteres</small>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="DNI" required formControlName="dni">
+        <small *ngIf="f.dni.errors?.required && f.dni.touched" class="invalido">DNI es requerido</small>          
+        <small *ngIf="f.dni.errors?.minlength && f.dni.touched" class="invalido">El campo debe ser igual a 8 caracteres</small>
+        <small *ngIf="f.dni.errors?.maxlength && f.dni.touched" class="invalido">El campo debe ser igual a 8 caracteres</small>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Direccion" required minlength="3" formControlName="direccion">
+        <small *ngIf="f.direccion.errors?.required && f.direccion.touched" class="invalido">Direccion es requerido</small>          
+        <small *ngIf="f.direccion.errors?.minlength && f.direccion.touched" class="invalido">El campo debe ser igual a 3 caracteres</small>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Telefono" required formControlName="telefono">
+        <small *ngIf="f.telefono.errors?.required && f.telefono.touched" class="invalido">Telefono es requerido</small>          
+        <small *ngIf="f.telefono.errors?.minlength && f.telefono.touched" class="invalido">El campo debe ser igual a 9 caracteres</small>
+        <small *ngIf="f.telefono.errors?.maxlength && f.telefono.touched" class="invalido">El campo debe ser igual a 9 caracteres</small>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Email" required formControlName="email">
+        <small *ngIf="f.email.errors?.required && f.email.touched" class="invalido">Email es requerido</small>
+        <small *ngIf="f.email.touched && f.email.errors && f.email.errors.email" class="invalido">El formato del correo no es válido</small>  
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="frmPaciente.invalid">
+        <mat-icon>done</mat-icon>
+        <span>Aceptar</span>
+    </button>
+    
+    <button mat-raised-button color="accent" type="button" (click)="cerrar()">
+        <mat-icon>close</mat-icon>
+        <span>Cancelar</span>
+    </button>
+    
+</form>
+
+

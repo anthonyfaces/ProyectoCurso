@@ -1,0 +1,24 @@
+<mat-toolbar>Mi Perfil</mat-toolbar>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      Usuario
+    </mat-card-title>
+    <mat-card-subtitle class="perfil">{{nameUser}}</mat-card-subtitle>
+  </mat-card-header>
+  
+  <div mat-card-image>
+    <img src="assets/usuario.ico" width="128" style="margin-left: 20px">
+  </div>
+  
+  <mat-card-content>
+    <div *ngIf="! roles.length">No tiene asignado roles por el momento</div>
+    
+    <div *ngIf="roles.length"><h2>Roles Asignados</h2></div>
+    <div *ngFor="let rol of roles; ">
+      <span>{{rol}}</span>
+    </div>
+  </mat-card-content>
+
+</mat-card>
